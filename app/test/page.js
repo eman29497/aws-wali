@@ -1,53 +1,37 @@
 "use client";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
+// Yeh chhota component search params handle karega
+function SearchComponent() {
+  const params = useSearchParams();
+  
+  let cities = [
+    { roll: 1, name: "ali" },
+    { roll: 2, name: "rameez" },
+    { roll: 3, name: "aqsa" },
+    { roll: 4, name: "yahya" }
+  ];
 
-// resultst.pk/isc/1/201
+  let ciyFound = cities.find((city) => city.roll == params.get('roll'));
 
-import { resumePluginState } from "next/dist/build/build-context";
-import { useSearchParams } from "next/navigation"
+  return (
+    <>
+      <h1>{ciyFound ? ciyFound.name : "Not Found"}</h1>
+      <h1>{params.get('name')}</h1>
+    </>
+  );
+}
 
-export default function Page(){
-
-    // some.com?name=ali&city=fsd&uni=gc
-    // is URL m se name,city,nikalne keluye yeh hook use hoga
-    let params = useSearchParams();
-
-    // useRef();
-    // useState()
-    // useEffect()
-
-    let cities = [
-        {
-            roll:1,
-            name:"ali"
-        },
-        {
-            roll:2,
-            name:"rameez"
-        },
-        {
-            roll:3,
-            name:"aqsa"
-        },
-        {
-            roll:4,
-            name:"yahya"
-        }
-    ]
-
-    let ciyFound = cities.find(function(city){
-
-        return city.roll == params.get('roll');
-
-    });
-
-// some.com?name=ali&city=fsd&uni=gc
-
-    return <div>
-        <h1>{ ciyFound.name}</h1>
-        <h1>{ params.get('name') }</h1>
-        asd
-        asdasdas
+// Yeh main Page component hai
+export default function Page() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchComponent />
+      </Suspense>
+      <p>asd</p>
+      <p>asdasdas</p>
     </div>
-
+  );
 }
