@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import "./tracker.css";
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
 export default function Tracker() {
